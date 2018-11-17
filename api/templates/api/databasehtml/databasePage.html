@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'api/UI/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'api/UI/bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'api/UI/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link href="{% static 'api/UI/Flat-UI-master/dist/css/flat-ui.css'%}" rel="stylesheet">
+    <link href="{% static 'api/UI/Flat-UI-master/docs/assets/css/demo.css'%}" rel="stylesheet">
+    <link href="{% static 'api/UI/css/RealDemo01.css'%}"  rel="stylesheet">
+
+    <title>DatabasePage_01</title>
+    <style>
+        .tableTitle01 {
+            border-radius: 6px;
+            padding: 6px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            position: relative;
+            text-align: left;
+            color: white
+        }
+        
+        .tile-protitle {
+            font-size: 40px;
+            margin: 0;
+        }
+        
+        .tile-image-pro {
+            height: 70px;
+            width: 70px;
+            margin: 13px 20px 13px 10px;
+            /* vertical-align: bottom; */
+        }
+        
+        .checkbox input[type=checkbox] {
+            width: 15px;
+            height: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top navbar-embossed navbar-expand-lg" role="navigation">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/untitled/index">进度条页面</a>
+            <!-- <ul class="nav navbar-nav">
+                <li><a href="databaseETHPage.html">DatabaseETH详情页面</a></li>
+                <li><a href="databaseSHREC.html">DatabaseSHERC详情页面</a></li>
+                <li><a href="database03.html">Database03详情页面</a></li>
+                <li><a href="database04.html">Database04详情页面</a></li>
+            </ul> -->
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="tableTitle01">
+        </div>
+        <h3 style="text-align:center">Evaluation Metrics Summary Tables</h3>
+        <hr>
+
+
+        <div class="table-responsive">
+            <table align="center " border="1 " cellpadding="1 " cellspacing="1 " style="width: 100%; " class="table-hover table-condensed table-striped dataTable ">
+
+                <thead>
+                    <tr>
+                        <th rowspan="2" scope="col"><strong>ID</strong></th>
+                        <th rowspan="2" scope="col"><strong>DataSet</strong></th>
+                        <th rowspan="2" scope="col">Method</th>
+                        <th colspan="5" scope="col">MicroAll</th>
+                        <th colspan="5" scope="col">MacroAll</th>
+                        <th colspan="4" scope="col">Other Information</th>
+                        <th rowspan="2" scope="col">详细信息</th>
+                        <th rowspan="1" scope="col">效果比对</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">P@N</th>
+                        <th scope="col">R@N</th>
+                        <th scope="col">F1@N</th>
+                        <th scope="col">mAP</th>
+                        <th scope="col">NDCG</th>
+                        <th scope="col"><span style="font-weight: 700; text-align: center;">P@N</span></th>
+                        <th scope="col"><span style="font-weight: 700; text-align: center;">R@N</span></th>
+                        <th scope="col"><span style="font-weight: 700; text-align: center;">F1@N</span></th>
+                        <th scope="col"><span style="font-weight: 700; text-align: center;">mAP</span></th>
+                        <th scope="col"><span style="font-weight: 700; text-align: center;">NDCG</span></th>
+                        <th scope="col">Author</th>
+                        <th scope="col">BeginTime</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Endtime</th>
+                        <th scope="col"><button type="button" class="btn btn-info btn-forSub">查看P_R曲线对比</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+
+            </table>
+        </div>
+
+        <div id="myModal01" class="modal">
+            <!-- 关闭按钮 -->
+            <span class="close" onclick="document.getElementById('myModal01').style.display='none'">&times;</span>
+
+            <!-- 弹窗内容 -->
+            <img class="modal-content" id="img01" src="">
+            <div id="caption">
+                <p>PR_Curve曲线
+                    <button type="button" class="btn btn-primary btn-inModal"><i class="fa fa-area-chart fa-lg pull-left"></i><strong>详细描述</strong></button>
+                </p>
+
+            </div>
+
+        </div>
+
+        <div id="myModal02" class="modal">
+            <!-- 关闭按钮 -->
+            <span class="close" onclick="document.getElementById('myModal02').style.display='none'">&times;</span>
+
+            <img class="modal-content01" id="img02" src="">
+
+            <div id="caption01">
+                <p>效果对比
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% load staticfiles %}
+    <script type=" text/javascript " src="{% static 'api/UI/jquery/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'api/UI/Flat-UI-master/dist/scripts/flat-ui.js' %} "></script>
+    <script src="{% static 'api/UI/Flat-UI-master/docs/assets/js/application.js' %} "></script>
+    <script type="text/javascript " src="{% static 'api/UI/bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript " src="{% static 'api/UI/js/databasePage_new.js' %}"></script>
+    <script type="text/javascript ">
+        $("td,th ").addClass("text-center ");
+    </script>
+
+</body>
+
+</html>

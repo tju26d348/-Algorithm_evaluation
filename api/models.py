@@ -8,6 +8,7 @@ from django.db import models
 class METHODS(models.Model):
     id = models.IntegerField(max_length=10,primary_key=True)
     name = models.CharField(max_length=30)
+    data_set = models.CharField(max_length=30)
     method = models.CharField(max_length=30)
     MacroPresison = models.CharField(max_length=30)
     MacroRecall = models.CharField(max_length=30)

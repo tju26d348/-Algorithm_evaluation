@@ -37,8 +37,8 @@ body {
 }
 
 .jumbotron {
-    margin-top: 10px;
-    background-color: coral;
+    padding-top: 10px;
+    background-color: rgb(255, 250, 237);
     color: aliceblue;
 }
 
@@ -48,6 +48,10 @@ a.btn {
 
 #tophover:hover {
     color: black;
+}
+
+h6 {
+    color: black
 }
 
 .modal {

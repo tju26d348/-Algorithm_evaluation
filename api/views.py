@@ -1,4 +1,5 @@
 import json
+import os
 import datetime
 from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponse
 from rest_framework.parsers import JSONParser
@@ -7,7 +8,9 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.views import APIView
 from .draw_pictures import drawing_pictures
-from .database_operation import query_for_database, query_for_list, get_database_messages,get_messages
+from .database_operation import query_for_database, query_for_list, get_database_messages, get_messages, feedback_ip
+from django.http import HttpResponseRedirect
+
 # Create your views here.
 
 
@@ -17,8 +20,8 @@ def get_method(request):
 
 def say_hello(request):
     result = get_messages()
-    print(result)
     return HttpResponse(result)
+    print(result)
 
 
 def get_undone(request):
@@ -73,7 +76,7 @@ class GetMessageView(APIView):
 def process_post_json(request):
     if request.method == 'POST':
         # data = request.POST.get('data')
-        data = request.body  # 要获取body中的json，一定要在请求头中加入content-type: applicaiton/json
+        data = request.body.decode('utf-8')  # 要获取body中的json，一定要在请求头中加入content-type: applicaiton/json
         print(data)
         data = json.loads(data)
     else:
@@ -91,19 +94,31 @@ def process_id(data):
     recall_dict_res = {}
     for index in range(0, len(data)):
         id = int(data[str(index)]["id"])
-        author = data[str(index)]["Author"]
-        method = data[str(index)]["Method"]
+        # author = data[str(index)]["Author"]
+        # method = data[str(index)]["Method"]
         [precision_dict, recall_dict] = query_for_list(id)
         precision_dict_res.__setitem__(index, precision_dict)
         recall_dict_res.__setitem__(index, recall_dict)
     now = str(datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S'))
+    global path_of_fig
     path_of_fig = "./api/static/api/img/img_ploted" + now + '.png'
     drawing_pictures(precision_dict_res, recall_dict_res, path_of_fig)
     return path_of_fig
 
 
 def index(request):
-    return render(request, "api/RealDemo01.html")
+    return render(request, "api/progressPage_new.html")
+
+
+def databasePage(request):
+    return render(request, 'api/databasehtml/databasePage.html')
+
+
+def delete_img(request):
+    print(path_of_fig)
+    if os.path.isfile(path_of_fig):
+        os.remove(path_of_fig)
+    return HttpResponse("Success!")
 
 
 def database_group(request):
@@ -114,5 +129,17 @@ def database_group(request):
     json_data = json.dumps(database_group_dic, cls=DateEncoder)
     return HttpResponse(json_data, content_type="application/json")
 
+
+def get_data_set(request):
+    if request.method == 'POST':
+        # data_set = request.POST.get('data')  # 设置request parameters,从request parameters中获取数据库名称
+        print(request.POST)
+        data_set = request.POST.get("dataset")
+        print(data_set)
+    else:
+        return HttpResponse('use POST request method please')
+    data_set_dic = get_database_messages(data_set)
+    json_data = json.dumps(data_set_dic, cls=DateEncoder)
+    return HttpResponse(json_data, content_type="application/json")
 
 # if __name__ == '__main__':

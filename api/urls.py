@@ -17,4 +17,8 @@ urlpatterns = [
     url(r'^compare/$', views.compare),
     url(r'^comparedetail/$', views.process_post_json),
     url(r'^classified/$', views.database_group),
+    url(r'^getdataset/$', views.get_data_set),
+    url(r'^databasePage/$', views.databasePage),
+    url(r'^index/databasePage/index$', views.comeback),
+    url(r'^closeWindow/$', views.delete_img)
 ]

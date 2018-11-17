@@ -13,7 +13,7 @@ mysql_ip = '127.0.0.1'
 mysql_port = 3306
 mysql_user = 'root'
 mysql_password = 'root'
-feedback_ip = "http://192.168.199.161:8000"
+feedback_ip = "http://192.168.199.119:8000"
 
 
 def get_authors():
@@ -21,13 +21,11 @@ def get_authors():
     cursor = conn.cursor()
     sqlstr = 'select Author from methods where State=1'
     cursor.execute(sqlstr)
-    # resultlist=[]
     result_dict = {}
     count = 0
     for result in cursor.fetchall():
         result_dict[count] = result
     print("----------------")
-    # print(resultlist[0])
     jsondata = json.dumps(result_dict).replace('[','').replace(']','')
     print(jsondata)
     conn.commit()
@@ -55,7 +53,6 @@ def get_database_messages(database):
     cursor = conn.cursor()
     sqlstr = 'select * from methods where data_base = %s and state = 1'
     cursor.execute(sqlstr, (str(database)))
-    #resultlist=[]
     result_dict = {}
     count = 0
     for result in cursor.fetchall():
@@ -84,10 +81,6 @@ def get_database_messages(database):
         result_dict[count] = one_result_dict
         count += 1
     print("----------------")
-    # jsondata = json.dumps(result_dict, cls=DateEncoder)
-    # conn.commit()
-    # cursor.close()
-    # conn.close()
     return result_dict
 
 
@@ -128,33 +121,31 @@ def get_messages():
     for result in cursor.fetchall():
         one_result = ResultModel()
         one_result.id = result[0]
-        one_result.name = result[1]
-        one_result.method = result[2]
-        one_result.MacroPresison = result[3]
-        one_result.MacroRecall = result[4]
-        one_result.MacroF1 = result[5]
-        one_result.MacromAP = result[6]
-        one_result.MacroNDCG = result[7]
-        one_result.MicroPresion = result[8]
-        one_result.MicroRecall = result[9]
-        one_result.MicroF1 = result[10]
-        one_result.MicromAP = result[11]
-        one_result.MicroNDCG = result[12]
-        one_result.Author = result[13]
-        one_result.BeginTime = result[14]
-        one_result.State = result[15]
-        one_result.EndTime = result[16]
-        one_result.PR_curve = result[17]
-        one_result.count = result[18]
-        one_result.count_now = result[19]
+        one_result.data_set = result[1]
+        one_result.name = result[2]
+        one_result.method = result[3]
+        one_result.MacroPresison = result[4]
+        one_result.MacroRecall = result[5]
+        one_result.MacroF1 = result[6]
+        one_result.MacromAP = result[7]
+        one_result.MacroNDCG = result[8]
+        one_result.MicroPresion = result[9]
+        one_result.MicroRecall = result[10]
+        one_result.MicroF1 = result[11]
+        one_result.MicromAP = result[12]
+        one_result.MicroNDCG = result[13]
+        one_result.Author = result[14]
+        one_result.BeginTime = result[15]
+        one_result.State = result[16]
+        one_result.EndTime = result[17]
+        one_result.PR_curve = result[18]
+        one_result.count = result[19]
+        one_result.count_now = result[20]
         one_result_dict = one_result.__dict__
         result_dict[count] = one_result_dict
-        #resultlist.append(one_result_dict)
         count += 1
     print("----------------")
-    #print(resultlist[0])
     jsondata = json.dumps(result_dict, cls=DateEncoder)
-    #print(jsondata)
     conn.commit()
     cursor.close()
     conn.close()
@@ -198,12 +189,9 @@ def get_done():
         one_result.count_now = result[19]
         one_result_dict = one_result.__dict__
         result_dict[count] = one_result_dict
-        # resultlist.append(one_result_dict)
         count += 1
     print("----------------")
-    # print(resultlist[0])
     jsondata = json.dumps(result_dict, cls=DateEncoder)
-    # print(jsondata)
     conn.commit()
     cursor.close()
     conn.close()
