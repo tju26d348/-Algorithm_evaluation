@@ -8,7 +8,6 @@ from api import views
 
 # api url 配置
 urlpatterns = [
-    # url(r'^', include(router.urls)),
     url(r'^index/$', views.index),
     url(r'^test/$', views.GetMessageView.as_view()),
     url(r'^runJob/$', views.run_job),
@@ -19,6 +18,5 @@ urlpatterns = [
     url(r'^classified/$', views.database_group),
     url(r'^getdataset/$', views.get_data_set),
     url(r'^databasePage/$', views.databasePage),
-    url(r'^index/databasePage/index$', views.comeback),
     url(r'^closeWindow/$', views.delete_img)
 ]
